@@ -69,11 +69,12 @@ class Board:
         return valid_moves
 
     def flip_pieces_after_move(self, row, col, color, board_state):
-        flipped_coins = self.get_flipped_coins(row, col, color, board_state)
+        new_board_state = np.copy(board_state)
+        flipped_coins = self.get_flipped_coins(row, col, color, new_board_state)
         for coin in flipped_coins:
-            board_state[coin[0]][coin[1]] = color
+            new_board_state[coin[0]][coin[1]] = color
 
-        return board_state
+        return new_board_state
 
     def get_flipped_coins(self, row, col, color, board_state):
         flipped_coins = []
