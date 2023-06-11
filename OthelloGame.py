@@ -2,20 +2,11 @@ import turtle
 from Gui import Board
 class Othello(Board):
     def __init__(self, n = 8):
-        '''
-            Initilizes the attributes.
-            Only takes one optional parameter; others have default values.
-        '''
+
         Board.__init__(self, n)
         self.current_player = 0
         self.num_tiles = [2, 2]
     def initialize_board(self):
-        ''' Method: initialize_board
-            Parameters: self
-            Returns: nothing
-            Does: Draws the first 4 tiles in the middle of the board
-                  (the size of the board must be at least 2x2).
-        '''
         if self.n < 2:
             return
 
@@ -30,6 +21,14 @@ class Othello(Board):
             col = initial_squares[i][1]
             self.board[row][col] = color + 1
             self.draw_tile(initial_squares[i], color)
+        turtle.speed(0)
+        turtle.shape("square")
+        turtle.penup()
+        turtle.hideturtle()
+        turtle.goto(-200, 200)
+        turtle.write("Score Black:",align="left", font=("Ariel", 10, "bold"))
+        turtle.goto(0, 200)
+        turtle.write("Score White:", align="left", font=("Ariel", 10, "bold"))
 
     def run(self):
         ''' Method: run
@@ -47,6 +46,21 @@ class Othello(Board):
         print('Your turn.')
         turtle.onscreenclick(self.play)
         turtle.mainloop()
+
+    def make_move(self):
+        ''' Method: make_move
+            Parameters: self
+            Returns: nothing
+            Does: Draws a tile for the player's next legal move on the
+                  board and flips the adversary's tiles. Also, updates the
+                  state of the board (1 for black tiles and 2 for white
+                  tiles), and increases the number of tiles of the current
+                  player by 1.
+        '''
+        # if self.is_legal_move(self.move):
+        self.board[self.move[0]][self.move[1]] = self.current_player + 1
+        self.num_tiles[self.current_player] += 1
+        self.draw_tile(self.move, self.current_player)
 
     def play(self, x, y):
         ''' Method: play
@@ -66,45 +80,48 @@ class Othello(Board):
                   About the input: (x, y) are the coordinates of where
                   the user clicks.
         '''
+        self.get_coord(x, y)
+        turtle.onscreenclick(None)
+        self.make_move()
         # Play the user's turn
-        if self.has_legal_move():
-            self.get_coord(x, y)
-            if self.is_legal_move(self.move):
-                turtle.onscreenclick(None)
-                self.make_move()
-            else:
-                return
+        # if self.has_legal_move():
+        #     self.get_coord(x, y)
+        #     if self.is_legal_move(self.move):
+        #         turtle.onscreenclick(None)
+        #         self.make_move()
+        #     else:
+        #         return
 
-        # Play the computer's turn
-        while True:
-            self.current_player = 1
-            if self.has_legal_move():
-                print('Computer\'s turn.')
-                self.make_random_move()
-                self.current_player = 0
-                if self.has_legal_move():
-                    break
-            else:
-                break
+        # # Play the computer's turn
+        # while True:
+        #     self.current_player = 1
+        #     if self.has_legal_move():
+        #         print('Computer\'s turn.')
+        #         self.make_random_move()
+        #         self.current_player = 0
+        #         if self.has_legal_move():
+        #             break
+        #     else:
+        #         break
 
-        # Switch back to the user's turn
-        self.current_player = 0
+        # # Switch back to the user's turn
+        # self.current_player = 0
 
-        # Check whether the game is over
-        if not self.has_legal_move() or sum(self.num_tiles) == self.n ** 2:
-            turtle.onscreenclick(None)
-            print('-----------')
-            self.report_result()
-            name = input('Enter your name for posterity\n')
-            # if not score.update_scores(name, self.num_tiles[0]):
-            #     print('Your score has not been saved.')
-            print('Thanks for playing Othello!')
-            close = input('Close the game screen? Y/N\n')
-            if close == 'Y':
-                turtle.bye()
-            elif close != 'N':
-                print('Quit in 3s...')
-                turtle.ontimer(turtle.bye, 3000)
-        else:
-            print('Your turn.')
-            turtle.onscreenclick(self.play)
+        # # Check whether the game is over
+        # if not self.has_legal_move() or sum(self.num_tiles) == self.n ** 2:
+        #     turtle.onscreenclick(None)
+        #     print('-----------')
+        #     self.report_result()
+        #     name = input('Enter your name for posterity\n')
+        #     # if not score.update_scores(name, self.num_tiles[0]):
+        #     #     print('Your score has not been saved.')
+        #     print('Thanks for playing Othello!')
+        #     close = input('Close the game screen? Y/N\n')
+        #     if close == 'Y':
+        #         turtle.bye()
+        #     elif close != 'N':
+        #         print('Quit in 3s...')
+        #         turtle.ontimer(turtle.bye, 3000)
+        # else:
+        #     print('Your turn.')
+        #     turtle.onscreenclick(self.play)
