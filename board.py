@@ -94,11 +94,6 @@ class Board:
 
         return flipped_coins
 
-    # a method to flip pieces
-    def flip(self, coins_to_flip, mycolor):
-        for row, col in coins_to_flip:
-            self.board[row][col] = -mycolor
-
 
     def count_pieces(self):
         black_count = 0
