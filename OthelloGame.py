@@ -90,6 +90,7 @@ class Othello(Board):
         self.draw_tile(self.move, self.current_player)
         for tile in flipped:
             self.draw_tile(tile, self.current_player)
+            self.board[tile[0]][tile[1]] = player
         self.update_score()
 
     def play(self, x, y):
