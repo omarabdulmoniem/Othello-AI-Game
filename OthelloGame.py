@@ -12,6 +12,7 @@ class Othello(Board):
         self.num_tiles = [2, 2]
         self.playFlag = False
         self.player = 1
+        self.humanflag = 0
 
     def initialize_board(self):
         if self.n < 2:
@@ -226,11 +227,15 @@ class Othello(Board):
             if (self.move[0], self.move[1]) in self.helper.get_valid_moves(self.player, self.board):
                 turtle.onscreenclick(None)
                 self.make_move()
+                self.humanflag = 1
 
-        if self.current_player == 0:
-            self.current_player = 1;
-        else:
-            self.current_player = 0;
-        self.player = self.player * (-1)
-        turtle.onscreenclick(self.play_human_human)
+        if self.humanflag == 1:
+            self.humanflag = 0
+            if self.current_player == 0:
+                self.current_player = 1;
+            else:
+                self.current_player = 0;
+            self.player = self.player * (-1)
+        if(self.win_lose_game()):
+            turtle.onscreenclick(self.play_human_human)
 
