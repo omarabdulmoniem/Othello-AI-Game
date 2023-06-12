@@ -50,16 +50,18 @@ class Helper:
 
     def get_flipped_coins(self, row, col, color, board_state):
         flipped_coins = []
-
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1), (1, -1), (-1, 1)]
+
         for dir_x, dir_y in directions:
             current_row, current_col = row + dir_x, col + dir_y
             coins_to_flip = []
 
-            while 0 <= current_row < self.size and 0 <= current_col < self.size and \
-                board_state[current_row][current_col] != '0':
-                if board_state[current_row][current_col] == color:
-                    flipped_coins.extend(coins_to_flip)
+            while 0 <= current_row < len(board_state) and 0 <= current_col < len(board_state[current_row]):
+                if board_state[current_row][current_col] == 0:
+                    break
+                elif board_state[current_row][current_col] == color:
+                    if coins_to_flip:
+                        flipped_coins.extend(coins_to_flip)
                     break
                 else:
                     coins_to_flip.append((current_row, current_col))
@@ -68,3 +70,4 @@ class Helper:
                 current_col += dir_y
 
         return flipped_coins
+

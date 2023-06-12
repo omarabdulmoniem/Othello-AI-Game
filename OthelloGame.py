@@ -87,8 +87,8 @@ class Othello(Board):
         player = -1 if self.current_player else 1
         flipped = self.helper.get_flipped_coins(self.move[0], self.move[1], player, self.board)
         print("Flipped coins: ", flipped)
-        self.num_tiles[self.current_player] += 1
         self.draw_tile(self.move, self.current_player)
+        self.num_tiles[self.current_player] += 1
         for tile in flipped:
             self.draw_tile(tile, self.current_player)
             self.board[tile[0]][tile[1]] = player
