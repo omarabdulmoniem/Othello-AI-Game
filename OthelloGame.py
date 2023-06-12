@@ -77,9 +77,9 @@ class Othello(Board):
         turtle.write(white, align="left", font=("Ariel", 12))
         turtle.goto(70, 200)
         if (self.current_player == 1):
-            turtle.write("Black turn", align="left", font=("Ariel", 10, "bold"))
+            turtle.write("Black turn", align="left", font=("Ariel", 12))
         else:
-            turtle.write("white turn", align="left", font=("Ariel", 10, "bold"))
+            turtle.write("white turn", align="left", font=("Ariel", 12))
     def run(self):
         ''' Method: run
             Parameters: self
