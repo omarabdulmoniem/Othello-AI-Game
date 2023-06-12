@@ -86,12 +86,34 @@ class Othello(Board):
             self.board[self.move[0]][self.move[1]] = -1
         player = -1 if self.current_player else 1
         flipped = self.helper.get_flipped_coins(self.move[0], self.move[1], player, self.board)
+        print("Flipped coins: ", flipped)
         self.num_tiles[self.current_player] += 1
         self.draw_tile(self.move, self.current_player)
         for tile in flipped:
             self.draw_tile(tile, self.current_player)
             self.board[tile[0]][tile[1]] = player
         self.update_score()
+
+    def win_lose_game(self):
+        white = 0
+        black = 0
+        win = 0
+        empty = 0
+        for i in range(len(self.board)):
+            for j in self.board[i]:
+                if j == -1:
+                    white += 1
+                elif j == 1:
+                    black += 1
+                else:
+                    empty += 1
+        if (white == 64 or black == 64):
+            win = 1
+
+        if (self.helper.get_valid_moves(-1, self.board) == 0 and self.helper.get_valid_moves(1,
+                                                                                             self.board) == 0) or win or empty == 0:
+            return False
+        return True
 
     def play(self, x, y):
         ''' Method: play
@@ -111,14 +133,9 @@ class Othello(Board):
                   About the input: (x, y) are the coordinates of where
                   the user clicks.
         '''
-        #print(self.board)
-        #self.get_coord(x, y)
-        #turtle.onscreenclick(None)
-        #self.make_move()
-        #print(self.board)
+
         player = -1 if self.current_player else 1
-        #board_stat = self.board
-        #print(board_stat)
+
         # Play the user's turn
         if len(self.helper.get_valid_moves(player, self.board)):
             self.get_coord(x, y)
@@ -146,7 +163,29 @@ class Othello(Board):
             else:
                 break
 
-        # # Switch back to the user's turn
+        player = -1 if self.current_player else 1
+
+        # Check whether the game is over
+        if not self.win_lose_game():
+            turtle.onscreenclick(None)
+            print('-----------')
+        #     self.report_result()
+        #     name = input('Enter your name for posterity\n')
+        #     # if not score.update_scores(name, self.num_tiles[0]):
+        #     #     print('Your score has not been saved.')
+        #     print('Thanks for playing Othello!')
+        #     close = input('Close the game screen? Y/N\n')
+        #     if close == 'Y':
+        #         turtle.bye()
+        #     elif close != 'N':
+        #         print('Quit in 3s...')
+        #         turtle.ontimer(turtle.bye, 3000)
+        else:
+            print('Your turn.')
+            turtle.onscreenclick(self.play)
+
+
+        # Switch back to the user's turn
         # self.current_player = 0
         # Play the user's turn
         # if self.has_legal_move():
