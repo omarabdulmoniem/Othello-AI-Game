@@ -64,8 +64,12 @@ class Othello(Board):
 
         self.current_player = 0
         print('Your turn.')
-        turtle.onscreenclick(self.play)
-        turtle.mainloop()
+        if (self.mode == "Human Vs AI"):
+            turtle.onscreenclick(self.play_human_ai)
+            turtle.mainloop()
+        elif (self.mode == "AI Vs AI"):
+            self.play_ai_ai()
+            turtle.mainloop()
 
     def make_move(self):
         ''' Method: make_move
@@ -110,12 +114,12 @@ class Othello(Board):
         if (white == 64 or black == 64):
             win = 1
 
-        if (self.helper.get_valid_moves(-1, self.board) == 0 and self.helper.get_valid_moves(1,
-                                                                                             self.board) == 0) or win or empty == 0:
+        if (len(self.helper.get_valid_moves(-1, self.board)) == 0 and len(self.helper.get_valid_moves(1,
+                                                                                                      self.board)) == 0) or win or empty == 0:
             return False
         return True
 
-    def play(self, x, y):
+    def play_human_ai(self, x, y):
         ''' Method: play
             Parameters: self, x (float), y (float)
             Returns: nothing
@@ -182,7 +186,7 @@ class Othello(Board):
         #         turtle.ontimer(turtle.bye, 3000)
         else:
             print('Your turn.')
-            turtle.onscreenclick(self.play)
+            turtle.onscreenclick(self.play_human_ai)
 
 
         # Switch back to the user's turn
@@ -229,3 +233,38 @@ class Othello(Board):
         # else:
         #     print('Your turn.')
         #     turtle.onscreenclick(self.play)
+
+    def play_ai_ai(self):
+        while (self.win_lose_game()):
+            while True:
+                self.current_player = 0
+                if len(self.helper.get_valid_moves(1, self.board)):
+                    print('Computer\'s turn.')
+                    print(self.helper.get_valid_moves(1, self.board))
+                    self.move = self.Ai.get_best_move_Min(self.board, 2)
+                    turtle.onscreenclick(None)
+                    print(self.move)
+                    self.make_move()
+
+                    self.current_player = 1
+                    if len(self.helper.get_valid_moves(1, self.board)):
+                        break
+                else:
+                    break
+
+            while True:
+                self.current_player = 1
+                if len(self.helper.get_valid_moves(-1, self.board)):
+                    print('Computer\'s turn.')
+                    print(self.helper.get_valid_moves(-1, self.board))
+                    self.move = self.Ai.get_best_move_Min(self.board, 2)
+                    turtle.onscreenclick(None)
+                    print(self.move)
+                    self.make_move()
+
+                    self.current_player = 0
+                    if len(self.helper.get_valid_moves(-1, self.board)):
+                        break
+                else:
+                    break
+        print("Lose")
