@@ -2,7 +2,7 @@ import turtle
 from Gui import Board
 from helper import Helper
 from Ai import Ai
-
+from tkinter import messagebox
 class Othello(Board):
     def __init__(self, n = 8):
         self.Ai = Ai()
@@ -279,9 +279,9 @@ class Othello(Board):
 
 
         if self.num_tiles[0] > self.num_tiles[1]:
-            print("Black wins!!!!")
+            messagebox.showinfo("Black wins!!!!")
         else:
-            print("White wins!!!!")
+            messagebox.showinfo("White wins!!!!")
 
 
     def play_human_human(self,x,y):
@@ -304,7 +304,7 @@ class Othello(Board):
             turtle.onscreenclick(self.play_human_human)
         else:
             if self.num_tiles[0] > self.num_tiles[1]:
-                print("Black wins!!!!")
+                messagebox.showinfo("Black wins!!!!")
             else:
-                print("White wins!!!!")
+                messagebox.showinfo("White wins!!!!")
 
