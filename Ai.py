@@ -75,6 +75,93 @@ class Ai:
 
     def heuristic_value(self, array):
 
+        # coin parity
+        Max_Player_Coins = 0
+        Min_Player_Coins = 0
+        for i in range(8):
+            for j in range(8):
+                if array[i][j] == 1:
+                    Max_Player_Coins = Max_Player_Coins + 1
+                elif array[i][j] == -1:
+                    Min_Player_Coins = Min_Player_Coins + 1
+                else:
+                    continue
+        # print("Max Player Coins:",Max_Player_Coins)
+        # print("Min Player Coins:",Min_Player_Coins)
+        Coin_Parity_Heuristic_Value = (
+                100 * (Max_Player_Coins - Min_Player_Coins) / (Max_Player_Coins + Min_Player_Coins))
+        # print("Coin Parity Heuristic Value:",Coin_Parity_Heuristic_Value)
+        # print('Hello world')
+        # Mobility
+        # Actual Mobility Value
+        Max_Player_Actual_Mobility_Value = 0
+        Min_Player_Actual_Mobility_Value = 0
+
+        for i in range(8):
+            for j in range(8):
+                if array[i][j] == 1:
+                    if array[i][j + 1] == -1:
+                        for z in range(8 - j - 1):
+                            if array[i][j + 2 + z] == 0:
+                                Max_Player_Actual_Mobility_Value = Max_Player_Actual_Mobility_Value + 1
+                                break
+
+                    if (j != 0) and (j != 1):
+                        if array[i][j - 1] == -1:
+                            for z in range(j - 1):
+                                if array[i][j - 2 - z] == 0:
+                                    Max_Player_Actual_Mobility_Value = Max_Player_Actual_Mobility_Value + 1
+                                    break
+
+                    if array[i + 1][j] == -1:
+                        # if array[i+1][j] == -1:
+                        for z in range(i + 2, 6):
+                            if array[i][z] == 0:
+                                Max_Player_Actual_Mobility_Value = Max_Player_Actual_Mobility_Value + 1
+                                break
+
+                    if (i != 0) and (i != 1):
+                        if array[i - 1][j] == -1:
+                            for z in range(i):
+                                if array[i - 2 - z][j] == 0:
+                                    Max_Player_Actual_Mobility_Value = Max_Player_Actual_Mobility_Value + 1
+                                    break
+        # print("Max_Player_Actual_Mobility_Value:" )
+        # print(Max_Player_Actual_Mobility_Value)
+
+        for i in range(8):
+            for j in range(8):
+                if array[i][j] == -1:
+                    if array[i][j + 1] == 1:
+                        for z in range(8 - j - 1):
+                            if array[i][j + 2 + z] == 0:
+                                Min_Player_Actual_Mobility_Value = Min_Player_Actual_Mobility_Value + 1
+                                break
+
+                    if (j != 0) and (j != 1):
+                        if array[i][j - 1] == 1:
+                            for z in range(j - 1):
+                                if array[i][j - 2 - z] == 0:
+                                    Min_Player_Actual_Mobility_Value = Min_Player_Actual_Mobility_Value + 1
+                                    break
+
+                    if array[i + 1][j] == 1:
+                        # if array[i+1][j] == -1:
+                        for z in range(i + 2, 6):
+                            if array[i][z] == 0:
+                                Min_Player_Actual_Mobility_Value = Min_Player_Actual_Mobility_Value + 1
+                                break
+
+                    if (i != 0) and (i != 1):
+                        if array[i - 1][j] == 1:
+                            for z in range(i):
+                                if array[i - 2 - z][j] == 0:
+                                    Min_Player_Actual_Mobility_Value = Min_Player_Actual_Mobility_Value + 1
+                                    break
+        # print("Coin Parity Heuristic Value:",Coin_Parity_Heuristic_Value)
+        # print("Min_Player_Actual_Mobility_Value:")
+        # print(Min_Player_Actual_Mobility_Value)
+
         # potential mobility
         Max_Player_Potential_Mobility_Value = 0
         Min_Player_Potential_Mobility_Value = 0
