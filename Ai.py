@@ -73,13 +73,7 @@ Ai = Ai()
 print(Ai.get_best_move_Max([[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,1,-1,0,0,0],[0,0,0,-1,1,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]], 1))
 
 game = OthelloGame.Othello()
-game.draw_board()
-game.initialize_board()
+game.first_screen()
 
-# # Starts playing the game
-# # The user makes a move by clicking one of the squares on the board
-# # The computer makes a random legal move every time
-# # Game is over when there are no more lagal moves or the board is full
-game.run()
 
 

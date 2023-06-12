@@ -21,14 +21,25 @@ class Othello(Board):
             col = initial_squares[i][1]
             self.board[row][col] = color + 1
             self.draw_tile(initial_squares[i], color)
+    def update_score(self):
+        whiteScore = 0;
+        blackScore = 0;
+        for i in range (len(self.board)):
+            for j in self.board[i]:
+                if j == 2:
+                    whiteScore+=1;
+                elif j == 1:
+                    blackScore+=1;
         turtle.speed(0)
         turtle.shape("square")
         turtle.penup()
         turtle.hideturtle()
         turtle.goto(-200, 200)
-        turtle.write("Score Black:",align="left", font=("Ariel", 10, "bold"))
+        white = "Score White: "+ str(whiteScore)
+        black = "Score Black: " + str(blackScore)
+        turtle.write(black, align="left", font=("Ariel", 10, "bold"))
         turtle.goto(0, 200)
-        turtle.write("Score White:", align="left", font=("Ariel", 10, "bold"))
+        turtle.write(white, align="left", font=("Ariel", 10, "bold"))
 
     def run(self):
         ''' Method: run
@@ -61,6 +72,7 @@ class Othello(Board):
         self.board[self.move[0]][self.move[1]] = self.current_player + 1
         self.num_tiles[self.current_player] += 1
         self.draw_tile(self.move, self.current_player)
+        self.update_score()
 
     def play(self, x, y):
         ''' Method: play
