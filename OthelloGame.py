@@ -118,6 +118,7 @@ class Othello(Board):
             self.draw_tile(tile, self.current_player)
             self.board[tile[0]][tile[1]] = player
         self.update_score()
+        self.who_play()
 
     def win_lose_game(self):
         white = 0
@@ -279,9 +280,9 @@ class Othello(Board):
 
 
         if self.num_tiles[0] > self.num_tiles[1]:
-            messagebox.showinfo("Black wins!!!!")
+            messagebox.showinfo("Message","Black wins!!!!")
         else:
-            messagebox.showinfo("White wins!!!!")
+            messagebox.showinfo("Message","White wins!!!!")
 
 
     def play_human_human(self,x,y):
@@ -304,7 +305,7 @@ class Othello(Board):
             turtle.onscreenclick(self.play_human_human)
         else:
             if self.num_tiles[0] > self.num_tiles[1]:
-                messagebox.showinfo("Black wins!!!!")
+                messagebox.showinfo("Message","Black wins!!!!")
             else:
-                messagebox.showinfo("White wins!!!!")
+                messagebox.showinfo("Message","White wins!!!!")
 

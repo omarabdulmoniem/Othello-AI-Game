@@ -55,6 +55,7 @@ class Board:
         self.draw_board()
     def first_screen(self):
         self.root = Tk()
+        self.root.eval('tk::PlaceWindow . centre')
         self.root.title("Othello Game")
         self.clickedMode = StringVar(self.root)
         self.clickedMode.set("Human Vs AI")
