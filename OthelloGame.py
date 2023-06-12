@@ -10,6 +10,7 @@ class Othello(Board):
         Board.__init__(self, n)
         self.current_player = 0
         self.num_tiles = [2, 2]
+        self.playFlag = False
 
     def initialize_board(self):
         if self.n < 2:
@@ -141,17 +142,19 @@ class Othello(Board):
         player = -1 if self.current_player else 1
 
         # Play the user's turn
+
         if len(self.helper.get_valid_moves(player, self.board)):
             self.get_coord(x, y)
             turtle.onscreenclick(None)
             if (self.move[0], self.move[1]) in self.helper.get_valid_moves(player, self.board):
                 turtle.onscreenclick(None)
                 self.make_move()
+                self.playFlag = True
             else:
-                return
+                self.playFlag = False
 
         # Play the computer's turn
-        while True:
+        while self.playFlag:
             self.current_player = 1
             if len(self.helper.get_valid_moves(-1, self.board)):
                 print('Computer\'s turn.')
