@@ -161,7 +161,7 @@ class Othello(Board):
             white = "White turn : " + str(0)
             turtle.write(white, align="left", font=("Ariel", 10, "bold"))
             turtle.goto(-0, 180)
-            black = "Black turn : " + str(1)
+            black = "Black turn: " + str(1)
             turtle.write(black, align="left", font=("Ariel", 10, "bold"))
         elif (self.current_player == 0):
             turtle.speed(0)
