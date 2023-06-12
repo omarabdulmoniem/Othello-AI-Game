@@ -11,6 +11,7 @@ class Othello(Board):
         self.current_player = 0
         self.num_tiles = [2, 2]
         self.playFlag = False
+        self.player = 1
 
     def initialize_board(self):
         if self.n < 2:
@@ -70,6 +71,9 @@ class Othello(Board):
             turtle.mainloop()
         elif (self.mode == "AI Vs AI"):
             self.play_ai_ai()
+            turtle.mainloop()
+        elif (self.mode == "Human Vs Human"):
+            turtle.onscreenclick(self.play_human_human)
             turtle.mainloop()
 
     def make_move(self):
@@ -176,66 +180,9 @@ class Othello(Board):
         if not self.win_lose_game():
             turtle.onscreenclick(None)
             print('-----------')
-        #     self.report_result()
-        #     name = input('Enter your name for posterity\n')
-        #     # if not score.update_scores(name, self.num_tiles[0]):
-        #     #     print('Your score has not been saved.')
-        #     print('Thanks for playing Othello!')
-        #     close = input('Close the game screen? Y/N\n')
-        #     if close == 'Y':
-        #         turtle.bye()
-        #     elif close != 'N':
-        #         print('Quit in 3s...')
-        #         turtle.ontimer(turtle.bye, 3000)
         else:
             print('Your turn.')
             turtle.onscreenclick(self.play_human_ai)
-
-
-        # Switch back to the user's turn
-        # self.current_player = 0
-        # Play the user's turn
-        # if self.has_legal_move():
-        #     self.get_coord(x, y)
-        #     if self.is_legal_move(self.move):
-        #         turtle.onscreenclick(None)
-        #         self.make_move()
-        #     else:
-        #         return
-
-        # # Play the computer's turn
-        # while True:
-        #     self.current_player = 1
-        #     if self.has_legal_move():
-        #         print('Computer\'s turn.')
-        #         self.make_random_move()
-        #         self.current_player = 0
-        #         if self.has_legal_move():
-        #             break
-        #     else:
-        #         break
-
-        # # Switch back to the user's turn
-        # self.current_player = 0
-
-        # # Check whether the game is over
-        # if not self.has_legal_move() or sum(self.num_tiles) == self.n ** 2:
-        #     turtle.onscreenclick(None)
-        #     print('-----------')
-        #     self.report_result()
-        #     name = input('Enter your name for posterity\n')
-        #     # if not score.update_scores(name, self.num_tiles[0]):
-        #     #     print('Your score has not been saved.')
-        #     print('Thanks for playing Othello!')
-        #     close = input('Close the game screen? Y/N\n')
-        #     if close == 'Y':
-        #         turtle.bye()
-        #     elif close != 'N':
-        #         print('Quit in 3s...')
-        #         turtle.ontimer(turtle.bye, 3000)
-        # else:
-        #     print('Your turn.')
-        #     turtle.onscreenclick(self.play)
 
     def play_ai_ai(self):
         while (self.win_lose_game()):
@@ -271,3 +218,19 @@ class Othello(Board):
                 else:
                     break
         print("Lose")
+
+    def play_human_human(self,x,y):
+        if len(self.helper.get_valid_moves(self.player, self.board)):
+            self.get_coord(x, y)
+            turtle.onscreenclick(None)
+            if (self.move[0], self.move[1]) in self.helper.get_valid_moves(self.player, self.board):
+                turtle.onscreenclick(None)
+                self.make_move()
+
+        if self.current_player == 0:
+            self.current_player = 1;
+        else:
+            self.current_player = 0;
+        self.player = self.player * (-1)
+        turtle.onscreenclick(self.play_human_human)
+
