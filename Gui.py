@@ -9,7 +9,7 @@ BOARD_COLOR = 'brown'
 LINE_COLOR = 'black'
 TILE_COLORS = ['black', 'white']
 MODE_OPTIONS = ["AI Vs AI", "Human Vs AI","Human Vs Human"]
-LEVEL_OPTIONS = ["1","2","3"]
+LEVEL_OPTIONS = ["1","2","3","4","5"]
 
 
 class Board:
@@ -67,6 +67,7 @@ class Board:
         self.clickedLevel.set("1")
         label = Label(  self.root, text="Level:").pack(padx=20, pady=15, side=tkinter.LEFT)
         dropDownMenuLevel = OptionMenu(  self.root,self.clickedLevel,*LEVEL_OPTIONS).pack(padx=10, pady=15, side=tkinter.LEFT)
+
 
         button = Button(  self.root, text="Play", command=self.store_and_display_board).pack(padx=10, pady=15, side=tkinter.LEFT)
         self.root.mainloop()

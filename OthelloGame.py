@@ -14,6 +14,7 @@ class Othello(Board):
         self.player = 1
         self.humanflag = 0
 
+
     def initialize_board(self):
         if self.n < 2:
             return
@@ -190,7 +191,7 @@ class Othello(Board):
             if len(self.helper.get_valid_moves(-1, self.board)):
                 print('Computer\'s turn.')
                 print(self.helper.get_valid_moves(-1, self.board))
-                self.move = self.Ai.get_best_move_Min(self.board, 2)
+                self.move = self.Ai.get_best_move_Min(self.board, int(self.level) + 2)
                 turtle.onscreenclick(None)
                 print(self.move)
                 self.make_move()
