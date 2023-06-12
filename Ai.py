@@ -191,6 +191,7 @@ class Ai:
         for i in range(8):
             for j in range(8):
                 if array[i][j] == 1:
+                 if j!=7:
                     if array[i][j + 1] == 0:
                         Min_Player_Potential_Mobility_Value = Min_Player_Potential_Mobility_Value + 1
                     if (j != 0) and (j != 1):
