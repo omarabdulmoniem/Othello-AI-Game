@@ -33,10 +33,22 @@ class Othello(Board):
                 self.board[row][col] = 1
             # self.board[row][col] = color + 1
             self.draw_tile(initial_squares[i], color)
+
+            turtle.speed(0)
+            turtle.shape("square")
+            turtle.penup()
+            turtle.hideturtle()
+            white = "Score White: " + str(0)
+            black = "Score Black: " + str(0)
+            turtle.goto(-200, 200)
+            turtle.write(white, align="left", font=("Ariel", 12))
+            turtle.goto(0, 200)
+            turtle.write(white, align="left", font=("Ariel", 12))
+
     def update_score(self):
         whiteScore = 0;
         blackScore = 0;
-        for i in range (len(self.board)):
+        for i in range(len(self.board)):
             for j in self.board[i]:
                 if j == -1:
                     whiteScore+=1;
@@ -47,11 +59,13 @@ class Othello(Board):
         turtle.penup()
         turtle.hideturtle()
         turtle.goto(-200, 200)
+        turtle.clear()
         white = "Score White: "+ str(whiteScore)
         black = "Score Black: " + str(blackScore)
-        turtle.write(black, align="left", font=("Ariel", 10, "bold"))
+        turtle.write(black, align="left", font=("Ariel", 12))
         turtle.goto(0, 200)
-        turtle.write(white, align="left", font=("Ariel", 10, "bold"))
+        #turtle.clear()
+        turtle.write(white, align="left", font=("Ariel", 12))
 
     def run(self):
         ''' Method: run
@@ -243,9 +257,7 @@ class Othello(Board):
             print("Black wins!!!!")
         else:
             print("White wins!!!!")
-        #print("Lose")
 
-        print("Lose")
 
     def play_human_human(self,x,y):
         if len(self.helper.get_valid_moves(self.player, self.board)):
@@ -265,4 +277,9 @@ class Othello(Board):
             self.player = self.player * (-1)
         if(self.win_lose_game()):
             turtle.onscreenclick(self.play_human_human)
+        else:
+            if self.num_tiles[0] > self.num_tiles[1]:
+                print("Black wins!!!!")
+            else:
+                print("White wins!!!!")
 
