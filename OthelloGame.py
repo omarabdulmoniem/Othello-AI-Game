@@ -152,6 +152,30 @@ class Othello(Board):
 
         return True
 
+    def who_play(self):
+        if (self.current_player == 1):
+            turtle.speed(0)
+            turtle.shape("square")
+            turtle.penup()
+            turtle.hideturtle()
+            turtle.goto(-200, 180)
+            white = "White turn : " + str(0)
+            turtle.write(white, align="left", font=("Ariel", 10, "bold"))
+            turtle.goto(-0, 180)
+            black = "Black turn: " + str(1)
+            turtle.write(black, align="left", font=("Ariel", 10, "bold"))
+        elif (self.current_player == 0):
+            turtle.speed(0)
+            turtle.shape("square")
+            turtle.penup()
+            turtle.hideturtle()
+            turtle.goto(-200, 180)
+            white = "White turn : " + str(1)
+            turtle.write(white, align="left", font=("Ariel", 10, "bold"))
+            turtle.goto(-0, 180)
+            black = "Black turn : 0" + str(0)
+            turtle.write(black, align="left", font=("Ariel", 10, "bold"))
+
     def play_human_ai(self, x, y):
         ''' Method: play
             Parameters: self, x (float), y (float)
