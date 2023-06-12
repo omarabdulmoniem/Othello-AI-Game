@@ -100,6 +100,7 @@ class Ai:
         for i in range(8):
             for j in range(8):
                 if array[i][j] == 1:
+                  if j!=7:
                     if array[i][j + 1] == -1:
                         for z in range(8 - j - 1):
                             if array[i][j + 2 + z] == 0:
