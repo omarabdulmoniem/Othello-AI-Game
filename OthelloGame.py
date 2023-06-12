@@ -13,6 +13,8 @@ class Othello(Board):
         self.playFlag = False
         self.player = 1
         self.humanflag = 0
+        self.black_num = 0
+        self.white_num = 0
 
 
     def initialize_board(self):
@@ -55,6 +57,10 @@ class Othello(Board):
                     whiteScore+=1;
                 elif j == 1:
                     blackScore+=1;
+        print("Score Black: " + str(blackScore))
+        print("Score White: " + str(whiteScore))
+        self.black_num = blackScore
+        self.white_num = whiteScore
         turtle.speed(0)
         turtle.shape("square")
         turtle.penup()
@@ -284,9 +290,11 @@ class Othello(Board):
                     break
 
 
-        if self.num_tiles[0] > self.num_tiles[1]:
+        if self.black_num > self.white_num:
+            print(self.num_tiles)
             messagebox.showinfo("Message","Black wins!!!!")
         else:
+            print(self.num_tiles)
             messagebox.showinfo("Message","White wins!!!!")
 
 
@@ -310,7 +318,9 @@ class Othello(Board):
             turtle.onscreenclick(self.play_human_human)
         else:
             if self.num_tiles[0] > self.num_tiles[1]:
-                messagebox.showinfo("Message","Black wins!!!!")
+                print(self.num_tiles)
+                messagebox.showinfo("Message","Black wins!")
             else:
-                messagebox.showinfo("Message","White wins!!!!")
+                print(self.num_tiles)
+                messagebox.showinfo("Message","White wins!")
 
