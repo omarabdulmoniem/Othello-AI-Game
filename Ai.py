@@ -534,11 +534,333 @@ class Ai:
             Corner_Heuristic_Value = 0
         # print("Corner_Heuristic_Value:",Corner_Heuristic_Value)
 
+
+        #stability
+
+            
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1), (1, -1), (-1, 1)]   
+            
+            
+        Max_Player_Stability_Value=0
+        Min_Player_Stability_Value=0
+
+        if array[0][0] == 1:
+            Max_Player_Stability_Value += 1    
+        elif array[0][0] == -1:
+            Min_Player_Stability_Value += 1
+            
+        if array[0][7] == 1:
+            Max_Player_Stability_Value += 1
+        elif array[0][7] == -1:
+            Min_Player_Stability_Value += 1
+
+        if array[7][0] == 1:
+            Max_Player_Stability_Value += 1
+        elif array[7][0] == -1:
+            Min_Player_Stability_Value += 1
+
+        if array[7][7] == 1:
+            Max_Player_Stability_Value += 1
+        elif array[7][7] == -1:
+            Min_Player_Stability_Value += 1
+            
+            
+        edge1_b = 0  
+        flag1_b = 1  
+        if array[0][0] == 1:
+            for col in range(1, 8):
+                if array[edge1_b][col] != 1:
+                    flag1_b = 0
+                    
+            if(flag1_b == 1):        
+                Max_Player_Stability_Value +=6
+                
+            
+            
+            
+        edge1_w = 0  
+        flag1_w = 1  
+        if array[0][0] == -1:
+            for col in range(1, 8):
+                if array[edge1_w][col] != -1:
+                    flag1_w = 0
+                    
+            if(flag1_w == 1):        
+                Min_Player_Stability_Value +=6
+                
+                    
+            
+        edge2_b = 0  
+        flag2_b = 1  
+        if array[0][0] == 1:
+            for row in range(1, 8):
+                if array[row][edge2_b] != 1:
+                    flag2_b = 0
+            
+            if(flag2_b == 1):        
+                Max_Player_Stability_Value +=6
+                
+
+
+        edge2_w = 0  
+        flag2_w = 1  
+        if array[0][0] == -1:
+            for row in range(1, 8):
+                if array[row][edge2_w] != -1:
+                    flag2_w = 0
+            
+            if(flag2_w == 1):        
+                Min_Player_Stability_Value +=6
+                
+            
+
+        edge3_b = 7  
+        flag3_b = 1  
+        if array[7][0] == 1:
+            for col in range(1, 8):
+                if array[edge3_b][col] != 1:
+                    flag3_b = 0
+                    
+            if(flag3_b == 1):        
+                Max_Player_Stability_Value +=6
+                
+                
+
+
+        edge3_w = 7  
+        flag3_w = 1  
+        if array[7][0] == -1:
+            for col in range(1, 8):
+                if array[edge3_w][col] != -1:
+                    flag3_w = 0
+            
+            if(flag3_w == 1):        
+                Min_Player_Stability_Value +=6
+                
+            
+            
+                
+            
+        edge4_b = 7  
+        flag4_b = 1  
+        if array[0][7] == 1:
+            for row in range(1, 8):
+                if array[row][edge4_b] != 1:
+                    flag4_b = 0
+            
+            if(flag4_b == 1):        
+                Max_Player_Stability_Value +=6
+                
+
+
+        edge4_w = 7  
+        flag4_w = 1  
+        if array[0][7] == -1:
+            for row in range(1, 8):
+                if array[row][edge4_w] != -1:
+                    flag4_w = 0
+            
+            if(flag4_w == 1):        
+                Min_Player_Stability_Value +=6
+                
+            
+        ##########################################################################################
+
+
+
+        flag_try_b = 1
+        if array[0][0] == 1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != 1:
+                        flag_try_b = 0
+                        
+            if(flag_try_b == 1):
+                Max_Player_Stability_Value +=1
+                
+                
+                
+        flag_try_w = 1
+        if array[0][0] == -1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != -1:
+                        flag_try_w = 0
+                        
+            if(flag_try_b == 1):
+                Min_Player_Stability_Value +=1
+
+
+
+        flag_try_b2 = 1
+        if array[0][7] == 1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != 1:
+                        flag_try_b2 = 0
+                        
+            if(flag_try_b == 1):
+                Max_Player_Stability_Value +=1
+                
+                
+                
+        flag_try_w2 = 1
+        if array[0][7] == -1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != -1:
+                        flag_try_w2 = 0
+                        
+            if(flag_try_b == 1):
+                Min_Player_Stability_Value +=1
+
+
+        flag_try_b3 = 1
+        if array[7][0] == 1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != 1:
+                        flag_try_b3 = 0
+                        
+            if(flag_try_b == 1):
+                Max_Player_Stability_Value +=1
+                
+                
+                
+        flag_try_w3 = 1
+        if array[7][0] == -1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != -1:
+                        flag_try_w3 = 0
+                        
+            if(flag_try_b == 1):
+                Min_Player_Stability_Value +=1
+                
+        
+                
+        flag_try_b4 = 1
+        if array[7][7] == 1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != 1:
+                        flag_try_b4 = 0
+                        
+            if(flag_try_b == 1):
+                Max_Player_Stability_Value +=1
+                
+                
+                
+        flag_try_w4 = 1
+        if array[7][7] == -1:
+            for x, y in directions:
+                new_row = 0 + x
+                new_col = 0 + y
+                
+                if 0 <= new_row < 8 and 0 <= new_col < 8:
+                    if array[new_row][new_col] != -1:
+                        flag_try_w4 = 0
+                        
+            if(flag_try_b == 1):
+                Min_Player_Stability_Value +=1
+            
+        
+            
+        
+            
+        
+        # flag_try_b = 1
+        # for row in range(8):
+        #     for col in range(8):      
+        #         if array[row][col] == 1:
+        #             for x, y in directions:
+        #                 new_row = row + x
+        #                 new_col = col + y
+                        
+        #                 if 0 <= new_row < 8 and 0 <= new_col < 8:
+        #                     if  array[new_row][new_col] != 1:
+        #                         flag_try_b = 0
+                                
+        #                 if(flag_try_b == 1):
+        #                     Max_Player_Stability_Value +=1
+                            
+                            
+                                
+                        
+                            
+                            
+        # a = Helper()            
+        
+            
+        # valid_Max = a.get_valid_moves(1, array)
+
+        # for x, y in valid_Max:
+        #     flip_Max = a.get_flipped_coins(x, y, 1, array)
+            
+        #     for z, k in flip_Max:
+        #         Min_Player_Stability_Value -= 1
+            
+
+
+        # valid_Min = a.get_valid_moves(-1, array)
+                
+        # for x, y in valid_Min:
+        #     flip_Min = a.get_flipped_coins(x, y, -1, array)
+            
+        #     for z, k in flip_Min:
+        #         Max_Player_Stability_Value -= 1       
+                    
+                    
+        if((Max_Player_Stability_Value+ Min_Player_Stability_Value) !=0):
+            Stability_Heuristic_Value = 100* (Max_Player_Stability_Value - Min_Player_Stability_Value)/(Max_Player_Stability_Value+ Min_Player_Stability_Value)
+        else:
+            Stability_Heuristic_Value = 0
+            
+            
+            
+        #print("Max_Player_Stability_Value:")
+        #print(Max_Player_Stability_Value)
+
+        #print("Min_Player_Stability_Value:")
+        #print(Min_Player_Stability_Value)
+
+        #print("Stability_Heuristic_Value:")
+        #print(Stability_Heuristic_Value)   
+
+
+        # print(valid_Min)   
+        # print(flip_Min) 
+
+
+
+    
+
         # corner heuristic had a weight of 30
         # mobility heuristic had a weight of 5
         # stability heuristic had a weight of 25
         # coin parity heuristic also had a weight of 25.
-        Total_heuristic_value = (0.3 * Corner_Heuristic_Value) + (0.05 * Mobility_value) + (0.25 * 0) + (
+        Total_heuristic_value = (0.3 * Corner_Heuristic_Value) + (0.05 * Mobility_value) + (0.25 * Stability_Heuristic_Value) + (
                 0.25 * Coin_Parity_Heuristic_Value)
         # print("Total_heuristic_value:",Total_heuristic_value)
         return Total_heuristic_value
