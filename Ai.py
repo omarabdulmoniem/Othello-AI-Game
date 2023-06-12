@@ -135,6 +135,7 @@ class Ai:
                 if array[i][j] == -1:
                     if array[i][j + 1] == 1:
                         for z in range(8 - j - 1):
+                         if j+2+z <8:
                             if array[i][j + 2 + z] == 0:
                                 Min_Player_Actual_Mobility_Value = Min_Player_Actual_Mobility_Value + 1
                                 break
