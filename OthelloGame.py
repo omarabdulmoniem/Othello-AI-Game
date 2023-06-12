@@ -42,9 +42,11 @@ class Othello(Board):
             white = "Score White: " + str(0)
             black = "Score Black: " + str(0)
             turtle.goto(-200, 200)
+            turtle.write(black, align="left", font=("Ariel", 12))
+            turtle.goto(-75, 200)
             turtle.write(white, align="left", font=("Ariel", 12))
-            turtle.goto(0, 200)
-            turtle.write(white, align="left", font=("Ariel", 12))
+            turtle.goto(70, 200)
+            turtle.write("Black turn", align="left", font=("Ariel", 10, "bold"))
 
     def update_score(self):
         whiteScore = 0;
@@ -64,10 +66,14 @@ class Othello(Board):
         white = "Score White: "+ str(whiteScore)
         black = "Score Black: " + str(blackScore)
         turtle.write(black, align="left", font=("Ariel", 12))
-        turtle.goto(0, 200)
+        turtle.goto(-75, 200)
         #turtle.clear()
         turtle.write(white, align="left", font=("Ariel", 12))
-
+        turtle.goto(70, 200)
+        if (self.current_player == 1):
+            turtle.write("Black turn", align="left", font=("Ariel", 10, "bold"))
+        else:
+            turtle.write("white turn", align="left", font=("Ariel", 10, "bold"))
     def run(self):
         ''' Method: run
             Parameters: self
@@ -118,7 +124,7 @@ class Othello(Board):
             self.draw_tile(tile, self.current_player)
             self.board[tile[0]][tile[1]] = player
         self.update_score()
-        self.who_play()
+        # self.who_play()
 
     def win_lose_game(self):
         white = 0
@@ -153,29 +159,32 @@ class Othello(Board):
 
         return True
 
-    def who_play(self):
-        if (self.current_player == 1):
-            turtle.speed(0)
-            turtle.shape("square")
-            turtle.penup()
-            turtle.hideturtle()
-            turtle.goto(-200, 180)
-            white = "White turn : " + str(0)
-            turtle.write(white, align="left", font=("Ariel", 10, "bold"))
-            turtle.goto(-0, 180)
-            black = "Black turn: " + str(1)
-            turtle.write(black, align="left", font=("Ariel", 10, "bold"))
-        elif (self.current_player == 0):
-            turtle.speed(0)
-            turtle.shape("square")
-            turtle.penup()
-            turtle.hideturtle()
-            turtle.goto(-200, 180)
-            white = "White turn : " + str(1)
-            turtle.write(white, align="left", font=("Ariel", 10, "bold"))
-            turtle.goto(-0, 180)
-            black = "Black turn : " + str(0)
-            turtle.write(black, align="left", font=("Ariel", 10, "bold"))
+    # def who_play(self):
+    #     if (self.current_player == 1):
+    #         turtle.speed(0)
+    #         turtle.shape("square")
+    #         turtle.penup()
+    #         turtle.hideturtle()
+    #         turtle.goto(-200, 200)
+    #         white = "White turn : " + str(0)
+    #         turtle.write("White turn", align="left", font=("Ariel", 10, "bold"))
+    #         # turtle.goto(-0, 180)
+    #         # black = "Black turn: " + str(1)
+    #         # turtle.write(black, align="left", font=("Ariel", 10, "bold"))
+    #     elif (self.current_player == 0):
+    #         turtle.clear()
+    #         turtle.goto(-200, 200)
+    #         turtle.write("Black turn", align="left", font=("Ariel", 10, "bold"))
+    #         # turtle.speed(0)
+    #         # turtle.shape("square")
+    #         # turtle.penup()
+    #         # turtle.hideturtle()
+    #         # turtle.goto(-200, 180)
+    #         # white = "White turn : " + str(1)
+    #         # turtle.write(white, align="left", font=("Ariel", 10, "bold"))
+    #         # turtle.goto(-0, 180)
+    #         # black = "Black turn : " + str(0)
+    #         # turtle.write(black, align="left", font=("Ariel", 10, "bold"))
 
     def play_human_ai(self, x, y):
         ''' Method: play
@@ -236,11 +245,6 @@ class Othello(Board):
         else:
             print('Your turn.')
             turtle.onscreenclick(self.play_human_ai)
-
-        if self.num_tiles[0] > self.num_tiles[1]:
-            messagebox.showinfo("Message", "Black wins!!!!")
-        else:
-            messagebox.showinfo("Message", "White wins!!!!")
 
     def play_ai_ai(self):
         while self.win_lose_game():
