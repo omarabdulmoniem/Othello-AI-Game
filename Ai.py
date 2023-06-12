@@ -9,6 +9,11 @@ class Ai:
         self.helper = Helper()
 
     def get_best_move_Max(self, state, requiredDepth):
+        empty_space = list(0 in row for row in state)
+        if len(empty_space) == 1:
+            valid_move = self.helper.get_valid_moves(1, state)
+            return valid_move[0]
+
         best_eval = float('-inf')
         best_move = None
         for move in self.helper.get_valid_moves(1,state):
@@ -23,6 +28,10 @@ class Ai:
         return best_move
 
     def get_best_move_Min(self, state, requiredDepth):
+        empty_space = list(0 in row for row in state)
+        if len(empty_space) == 1:
+            valid_move = self.helper.get_valid_moves(-1, state)
+            return valid_move[0]
         best_eval = float('-inf')
         best_move = None
         for move in self.helper.get_valid_moves(-1, state):

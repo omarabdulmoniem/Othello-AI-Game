@@ -125,6 +125,18 @@ class Othello(Board):
             return False
         return True
 
+    def check_game_over(self, board):
+        has_empty_space = any(0 in row for row in board)
+
+        # Check if there are valid moves for both players
+        black_has_valid_moves = any(self.helper.get_valid_moves(1, board))
+        white_has_valid_moves = any(self.helper.get_valid_moves(-1, board))
+
+        if not has_empty_space or (not black_has_valid_moves and not white_has_valid_moves):
+            return False
+
+        return True
+
     def play_human_ai(self, x, y):
         ''' Method: play
             Parameters: self, x (float), y (float)
@@ -186,16 +198,20 @@ class Othello(Board):
             turtle.onscreenclick(self.play_human_ai)
 
     def play_ai_ai(self):
-        while (self.win_lose_game()):
+        while self.win_lose_game():
             while True:
                 self.current_player = 0
                 if len(self.helper.get_valid_moves(1, self.board)):
-                    print('Computer\'s turn.')
+                    print('First Computer\'s turn.')
                     print(self.helper.get_valid_moves(1, self.board))
-                    self.move = self.Ai.get_best_move_Min(self.board, 2)
+                    self.move = self.Ai.get_best_move_Max(self.board, 2)
                     turtle.onscreenclick(None)
                     print(self.move)
-                    self.make_move()
+
+                    if self.move != None:
+                        self.make_move()
+                    else:
+                        break
 
                     self.current_player = 1
                     if len(self.helper.get_valid_moves(1, self.board)):
@@ -206,18 +222,29 @@ class Othello(Board):
             while True:
                 self.current_player = 1
                 if len(self.helper.get_valid_moves(-1, self.board)):
-                    print('Computer\'s turn.')
+                    print('Second Computer\'s turn.')
                     print(self.helper.get_valid_moves(-1, self.board))
                     self.move = self.Ai.get_best_move_Min(self.board, 2)
                     turtle.onscreenclick(None)
                     print(self.move)
-                    self.make_move()
+                    if self.move != None:
+                        self.make_move()
+                    else:
+                        break
 
                     self.current_player = 0
                     if len(self.helper.get_valid_moves(-1, self.board)):
                         break
                 else:
                     break
+
+
+        if self.num_tiles[0] > self.num_tiles[1]:
+            print("Black wins!!!!")
+        else:
+            print("White wins!!!!")
+        #print("Lose")
+
         print("Lose")
 
     def play_human_human(self,x,y):

@@ -8,6 +8,7 @@ class Helper:
 
         # Black = 1 and White = -1
 
+
     def get_valid_moves(self, player, board):
         valid_moves = []
 
