@@ -122,7 +122,7 @@ class Othello(Board):
         if len(self.helper.get_valid_moves(player, self.board)):
             self.get_coord(x, y)
             turtle.onscreenclick(None)
-            if self.helper.is_valid(self.move[0], self.move[1], player, self.board):
+            if (self.move[0], self.move[1]) in self.helper.get_valid_moves(player, self.board):
                 turtle.onscreenclick(None)
                 self.make_move()
             else:
@@ -133,7 +133,8 @@ class Othello(Board):
             self.current_player = 1
             if len(self.helper.get_valid_moves(-1, self.board)):
                 print('Computer\'s turn.')
-                self.move = self.Ai.get_best_move_Min(self.board, 6)
+                print(self.helper.get_valid_moves(-1, self.board))
+                self.move = self.Ai.get_best_move_Min(self.board, 2)
                 turtle.onscreenclick(None)
                 print(self.move)
                 self.make_move()

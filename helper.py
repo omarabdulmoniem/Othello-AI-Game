@@ -7,43 +7,41 @@ class Helper:
         self.directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1), (1, -1), (-1, 1)]
 
         # Black = 1 and White = -1
-    def is_valid(self, row, col, color, board_state):
-        if board_state[row][col] != 0:
-            return False
 
-        # A loop to check every direction
-        for x, y in self.directions:
-            new_row = row + x
-            new_col = col + y
-            opponent_found = False
-
-            # Move until you find empty, piece or edge
-            while 0 <= new_row < self.size and 0 <= new_col < self.size:
-                if board_state[new_row][new_col] == color:
-                    if opponent_found:
-                        return True
-                    else:
-                        break
-                elif board_state[new_row][new_col] == 0:
-                    break
-                else:
-                    opponent_found = True
-
-                new_row += x
-                new_col += y
-
-        return False
-
-    def get_valid_moves(self, color, board_state):
+    def get_valid_moves(self, player, board):
         valid_moves = []
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.is_valid(row, col, color, board_state):
-                    valid_moves.append((row, col))
+
+        # Check each cell of the board
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                # If the cell is empty, check if it's a valid move
+                if board[i][j] == 0:
+                    # Check in all eight directions
+                    for dx in [-1, 0, 1]:
+                        for dy in [-1, 0, 1]:
+                            if dx == 0 and dy == 0:
+                                continue  # Skip the current cell
+
+                            # Move in the current direction until a different player's piece is found or the edge of the board is reached
+                            x, y = i + dx, j + dy
+                            path = []  # Stores the path of opponent's pieces
+
+                            while 0 <= x < len(board) and 0 <= y < len(board[x]):
+                                if board[x][y] == -player:
+                                    path.append((x, y))
+                                    x += dx
+                                    y += dy
+                                elif board[x][y] == player and path:
+                                    # If the next cell is the player's own piece and there is a path of opponent's pieces in between, it's a valid move
+                                    valid_moves.append((i, j))
+                                    break
+                                else:
+                                    break
+
         return valid_moves
 
     def flip_pieces_after_move(self, row, col, color, board_state):
-        new_board_state = board_state
+        new_board_state = np.copy(board_state)
         flipped_coins = self.get_flipped_coins(row, col, color, new_board_state)
         for coin in flipped_coins:
             new_board_state[coin[0]][coin[1]] = color
