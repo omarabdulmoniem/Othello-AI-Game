@@ -1,11 +1,16 @@
 import turtle
 from Gui import Board
+from helper import Helper
+from Ai import Ai
+
 class Othello(Board):
     def __init__(self, n = 8):
-
+        self.Ai = Ai()
+        self.helper = Helper()
         Board.__init__(self, n)
         self.current_player = 0
         self.num_tiles = [2, 2]
+
     def initialize_board(self):
         if self.n < 2:
             return
@@ -19,14 +24,18 @@ class Othello(Board):
             color = i % 2
             row = initial_squares[i][0]
             col = initial_squares[i][1]
-            self.board[row][col] = color + 1
+            if color == 1:
+                self.board[row][col] = -1
+            elif color == 0:
+                self.board[row][col] = 1
+            # self.board[row][col] = color + 1
             self.draw_tile(initial_squares[i], color)
     def update_score(self):
         whiteScore = 0;
         blackScore = 0;
         for i in range (len(self.board)):
             for j in self.board[i]:
-                if j == 2:
+                if j == -1:
                     whiteScore+=1;
                 elif j == 1:
                     blackScore+=1;
@@ -69,9 +78,18 @@ class Othello(Board):
                   player by 1.
         '''
         # if self.is_legal_move(self.move):
-        self.board[self.move[0]][self.move[1]] = self.current_player + 1
+        # self.board[self.move[0]][self.move[1]] = self.current_player + 1
+        if self.current_player == 0:
+            self.board[self.move[0]][self.move[1]] = 1
+        elif self.current_player == 1:
+            print(self.move)
+            self.board[self.move[0]][self.move[1]] = -1
+        player = -1 if self.current_player else 1
+        flipped = self.helper.get_flipped_coins(self.move[0], self.move[1], player, self.board)
         self.num_tiles[self.current_player] += 1
         self.draw_tile(self.move, self.current_player)
+        for tile in flipped:
+            self.draw_tile(tile, self.current_player)
         self.update_score()
 
     def play(self, x, y):
@@ -92,9 +110,42 @@ class Othello(Board):
                   About the input: (x, y) are the coordinates of where
                   the user clicks.
         '''
-        self.get_coord(x, y)
-        turtle.onscreenclick(None)
-        self.make_move()
+        #print(self.board)
+        #self.get_coord(x, y)
+        #turtle.onscreenclick(None)
+        #self.make_move()
+        #print(self.board)
+        player = -1 if self.current_player else 1
+        #board_stat = self.board
+        #print(board_stat)
+        # Play the user's turn
+        if len(self.helper.get_valid_moves(player, self.board)):
+            self.get_coord(x, y)
+            turtle.onscreenclick(None)
+            if self.helper.is_valid(self.move[0], self.move[1], player, self.board):
+                turtle.onscreenclick(None)
+                self.make_move()
+            else:
+                return
+
+        # Play the computer's turn
+        while True:
+            self.current_player = 1
+            if len(self.helper.get_valid_moves(-1, self.board)):
+                print('Computer\'s turn.')
+                self.move = self.Ai.get_best_move_Min(self.board, 6)
+                turtle.onscreenclick(None)
+                print(self.move)
+                self.make_move()
+
+                self.current_player = 0
+                if len(self.helper.get_valid_moves(-1, self.board)):
+                    break
+            else:
+                break
+
+        # # Switch back to the user's turn
+        # self.current_player = 0
         # Play the user's turn
         # if self.has_legal_move():
         #     self.get_coord(x, y)
