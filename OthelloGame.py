@@ -174,7 +174,7 @@ class Othello(Board):
             white = "White turn : " + str(1)
             turtle.write(white, align="left", font=("Ariel", 10, "bold"))
             turtle.goto(-0, 180)
-            black = "Black turn : 0" + str(0)
+            black = "Black turn : " + str(0)
             turtle.write(black, align="left", font=("Ariel", 10, "bold"))
 
     def play_human_ai(self, x, y):
@@ -236,6 +236,11 @@ class Othello(Board):
         else:
             print('Your turn.')
             turtle.onscreenclick(self.play_human_ai)
+
+        if self.num_tiles[0] > self.num_tiles[1]:
+            messagebox.showinfo("Message", "Black wins!!!!")
+        else:
+            messagebox.showinfo("Message", "White wins!!!!")
 
     def play_ai_ai(self):
         while self.win_lose_game():
