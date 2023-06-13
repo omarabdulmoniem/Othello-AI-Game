@@ -30,4 +30,4 @@ The game is played with black-and-white tiles on an 8x8 board. The object of the
 
 ## Disclaimer
 
-This is a project for *CSE472 Artifitial Intelligence of Computer Science Engineering*.
+This is a project for *CSE472 Artifitial Intelligence of Computer and Systems Engineering*.
