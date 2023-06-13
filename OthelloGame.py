@@ -81,13 +81,7 @@ class Othello(Board):
         else:
             turtle.write("white turn", align="left", font=("Ariel", 12))
     def run(self):
-        ''' Method: run
-            Parameters: self
-            Returns: nothing
-            Does: Starts the game, sets the user to be the first player,
-                  and then alternate back and forth between the user and
-                  the computer until the game is over.
-        '''
+
         if self.current_player not in (0, 1):
             print('Error: unknown player. Quit...')
             return
@@ -105,17 +99,7 @@ class Othello(Board):
             turtle.mainloop()
 
     def make_move(self):
-        ''' Method: make_move
-            Parameters: self
-            Returns: nothing
-            Does: Draws a tile for the player's next legal move on the
-                  board and flips the adversary's tiles. Also, updates the
-                  state of the board (1 for black tiles and 2 for white
-                  tiles), and increases the number of tiles of the current
-                  player by 1.
-        '''
-        # if self.is_legal_move(self.move):
-        # self.board[self.move[0]][self.move[1]] = self.current_player + 1
+
         if self.current_player == 0:
             self.board[self.move[0]][self.move[1]] = 1
         elif self.current_player == 1:
@@ -130,7 +114,7 @@ class Othello(Board):
             self.draw_tile(tile, self.current_player)
             self.board[tile[0]][tile[1]] = player
         self.update_score()
-        # self.who_play()
+
 
     def win_lose_game(self):
         white = 0
@@ -165,51 +149,8 @@ class Othello(Board):
 
         return True
 
-    # def who_play(self):
-    #     if (self.current_player == 1):
-    #         turtle.speed(0)
-    #         turtle.shape("square")
-    #         turtle.penup()
-    #         turtle.hideturtle()
-    #         turtle.goto(-200, 200)
-    #         white = "White turn : " + str(0)
-    #         turtle.write("White turn", align="left", font=("Ariel", 10, "bold"))
-    #         # turtle.goto(-0, 180)
-    #         # black = "Black turn: " + str(1)
-    #         # turtle.write(black, align="left", font=("Ariel", 10, "bold"))
-    #     elif (self.current_player == 0):
-    #         turtle.clear()
-    #         turtle.goto(-200, 200)
-    #         turtle.write("Black turn", align="left", font=("Ariel", 10, "bold"))
-    #         # turtle.speed(0)
-    #         # turtle.shape("square")
-    #         # turtle.penup()
-    #         # turtle.hideturtle()
-    #         # turtle.goto(-200, 180)
-    #         # white = "White turn : " + str(1)
-    #         # turtle.write(white, align="left", font=("Ariel", 10, "bold"))
-    #         # turtle.goto(-0, 180)
-    #         # black = "Black turn : " + str(0)
-    #         # turtle.write(black, align="left", font=("Ariel", 10, "bold"))
 
     def play_human_ai(self, x, y):
-        ''' Method: play
-            Parameters: self, x (float), y (float)
-            Returns: nothing
-            Does: Plays alternately between the user's turn and the computer's
-                  turn. The user plays the first turn. For the user's turn,
-                  gets the user's move by their click on the screen, and makes
-                  the move if it is legal; otherwise, waits indefinitely for a
-                  legal move to make. For the computer's turn, just makes a
-                  random legal move. If one of the two players (user/computer)
-                  does not have a legal move, switches to another player's
-                  turn. When both of them have no more legal moves or the
-                  board is full, reports the result, saves the user's score
-                  and ends the game.
-
-                  About the input: (x, y) are the coordinates of where
-                  the user clicks.
-        '''
 
         player = -1 if self.current_player else 1
 
