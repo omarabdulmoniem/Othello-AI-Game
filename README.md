@@ -3,7 +3,7 @@
 A simple Python-based version of [Othello game](https://en.wikipedia.org/wiki/Reversi) built with the [turtle library](https://docs.python.org/3.7/library/turtle.html).
 Here's a gif below showing how to use our GUI to play Othello :)
 
-![](AI_Project_AdobeExpress.gif)
+<img src="AI_Project_AdobeExpress.gif" width="250" height="250"/>
 
 
 ## Instructions
