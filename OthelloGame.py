@@ -224,6 +224,8 @@ class Othello(Board):
                 self.playFlag = True
             else:
                 self.playFlag = False
+        else:
+            self.playFlag = True
 
         # Play the computer's turn
         while self.playFlag:
@@ -242,6 +244,7 @@ class Othello(Board):
                 if len(self.helper.get_valid_moves(-1, self.board)):
                     break
             else:
+                self.current_player = 0
                 break
 
         player = -1 if self.current_player else 1
@@ -250,8 +253,16 @@ class Othello(Board):
         if not self.win_lose_game():
             turtle.onscreenclick(None)
             print('-----------')
+            if self.black_num > self.white_num:
+                print(self.num_tiles)
+                messagebox.showinfo("Message", "Black wins!")
+            else:
+                print(self.num_tiles)
+                messagebox.showinfo("Message", "White wins!")
         else:
             print('Your turn.')
+            print("Valid Moves: ")
+            print(self.helper.get_valid_moves(player, self.board))
             turtle.onscreenclick(self.play_human_ai)
 
     def play_ai_ai(self):
