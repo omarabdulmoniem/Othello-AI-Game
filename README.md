@@ -22,7 +22,7 @@ The game is played with black-and-white tiles on an 8x8 board. The object of the
 
 ## File structure
 
-- `AI.py`: contains a class that handles minMax best moves.
+- `AI.py`: contains a class that handles Alphabeta best moves.
 - `board.py`: contains a class that represents the game board.
 - `helper.py`: contains a class that used across different classes to determine the valid moves.
 - `main.py`: the main entry port for the game.
